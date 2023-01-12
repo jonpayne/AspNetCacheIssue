@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.ResponseCompression;
 
@@ -21,6 +22,9 @@ builder.Services.AddOutputCache(options =>
 });
 
 builder.Services.AddResponseCompression(options => options.EnableForHttps = true);
+builder.Services.Configure<BrotliCompressionProviderOptions>(options => options.Level = CompressionLevel.SmallestSize);
+builder.Services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.SmallestSize);
+
 
 var app = builder.Build();
 
